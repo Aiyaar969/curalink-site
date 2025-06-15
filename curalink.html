@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayurvedic Supplement Recommender</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f0f8f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2f7a67;
+    }
+    .checkbox-group {
+      margin: 1rem 0;
+    }
+    .checkbox-group label {
+      display: block;
+      margin: 0.5rem 0;
+    }
+    button {
+      background-color: #2f7a67;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 2rem;
+      background-color: #e2f7ec;
+      padding: 1rem;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Find Your Ayurvedic Supplement</h1>
+    <p>Select your symptoms below:</p>
+    <form id="symptomForm">
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="symptom" value="weakness"> Weakness / Fatigue</label>
+        <label><input type="checkbox" name="symptom" value="digestion"> Poor Digestion</label>
+        <label><input type="checkbox" name="symptom" value="stress"> Stress / Anxiety</label>
+        <label><input type="checkbox" name="symptom" value="sleep"> Sleep Issues</label>
+        <label><input type="checkbox" name="symptom" value="immunity"> Low Immunity</label>
+        <label><input type="checkbox" name="symptom" value="skin"> Skin Problems</label>
+      </div>
+      <button type="submit">Get Recommendations</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const recommendations = {
+      weakness: "Ashwagandha or Iron-rich Ayurvedic supplement (e.g., Lohasava)",
+      digestion: "Triphala, Hingvastak Churna, or Digestive Churna",
+      stress: "Brahmi, Ashwagandha, or Jatamansi formulations",
+      sleep: "Tagara (Indian Valerian), Brahmi, or Shankhpushpi syrup",
+      immunity: "Chyawanprash, Giloy, or Tulsi-based formulations",
+      skin: "Neem, Manjistha, and Turmeric capsules"
+    };
+
+    document.getElementById("symptomForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const selected = Array.from(document.querySelectorAll("input[name='symptom']:checked")).map(cb => cb.value);
+
+      if (selected.length === 0) {
+        document.getElementById("result").innerHTML = "<strong>Please select at least one symptom.</strong>";
+        return;
+      }
+
+      let output = "<h3>Recommended Supplements:</h3><ul>";
+      selected.forEach(symptom => {
+        output += `<li><strong>${symptom}:</strong> ${recommendations[symptom]}</li>`;
+      });
+      output += "</ul>";
+      document.getElementById("result").innerHTML = output;
+    });
+  </script>
+</body>
+</html>
